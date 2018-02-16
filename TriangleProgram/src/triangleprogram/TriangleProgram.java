@@ -27,10 +27,10 @@ public class TriangleProgram {
      */
     public static void main(String[] args) throws IOException {
         TriangleProgram TP = new TriangleProgram();
-        TP.input();
+        TP.inputHandler();
     }
 
-    private void input() throws IOException {
+    private void inputHandler() throws IOException {
         Scanner scan = new Scanner(System.in);
         arr = new int[3];
         while (isRunning) {
