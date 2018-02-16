@@ -19,7 +19,6 @@ public class TriangleProgram {
     private int[] arr;
     private String triangle;
     private boolean isRunning = true;
-    private int i;
 
     /**
      * @param args the command line arguments
@@ -39,7 +38,7 @@ public class TriangleProgram {
             try {
                 arr[0] = scan.nextInt();
                 if (arr[0] == 1) {
-                    for (i = 0; i < arr.length; i++) {
+                    for (int i = 0; i < arr.length; i++) {
                         System.out.println("Please enter a value for your triangle");
                         arr[i] = scan.nextInt();
                     }
