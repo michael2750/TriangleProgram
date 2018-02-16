@@ -23,8 +23,8 @@ public class TriangleProgram {
     private String triangle;
     private boolean isRunning;
     private static final Logger LOGGER = Logger.getLogger(TriangleProgram.class.getName());
-    private final FileHandler fh;
-    private final SimpleFormatter sf;
+    private final FileHandler fileHandle;
+    private final SimpleFormatter simpleFormat;
     private String errorMessage;
 
     /**
@@ -34,10 +34,10 @@ public class TriangleProgram {
      */
     public TriangleProgram(SimpleFormatter simpleFor, FileHandler fileHandler, Logger logger) {
         isRunning = true;
-        this.fh = fileHandler;
-        this.sf = simpleFor;
-        logger.addHandler(fh);
-        fh.setFormatter(sf);
+        this.fileHandle = fileHandler;
+        this.simpleFormat = simpleFor;
+        logger.addHandler(fileHandle);
+        fileHandler.setFormatter(simpleFormat);
     }
 
     /**
@@ -51,10 +51,10 @@ public class TriangleProgram {
 
         /*Settinng up a logger, formatter and a filehandler with the given path so it can log errors
         to the file called "Log.txt"*/
-        FileHandler fh = new FileHandler(path + "\\Log.txt");
-        SimpleFormatter sf = new SimpleFormatter();
-        TriangleProgram TP = new TriangleProgram(sf, fh, LOGGER);
-        TP.inputHandler();
+        FileHandler fileHandler = new FileHandler(path + "\\Log.txt");
+        SimpleFormatter simpleFormatter = new SimpleFormatter();
+        TriangleProgram triangleProgram = new TriangleProgram(simpleFormatter, fileHandler, LOGGER);
+        triangleProgram.inputHandler();
     }
 
     private void inputHandler() throws IOException {
