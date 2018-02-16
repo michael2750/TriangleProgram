@@ -8,7 +8,10 @@ package triangleprogram;
 import java.io.IOException;
 import java.util.InputMismatchException;
 import java.util.Scanner;
-import sun.rmi.runtime.Log;
+import java.util.logging.FileHandler;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.util.logging.SimpleFormatter;
 
 /**
  *
@@ -18,14 +21,39 @@ public class TriangleProgram {
 
     private int[] arr;
     private String triangle;
-    private boolean isRunning = true;
+    private boolean isRunning;
+    private static final Logger LOGGER = Logger.getLogger(TriangleProgram.class.getName());
+    private final FileHandler fh;
+    private final SimpleFormatter sf;
+    private String errorMessage;
+
+    /**
+     * @param simpleFor
+     * @param fileHandler
+     * @param logger
+     */
+    public TriangleProgram(SimpleFormatter simpleFor, FileHandler fileHandler, Logger logger) {
+        isRunning = true;
+        this.fh = fileHandler;
+        this.sf = simpleFor;
+        logger.addHandler(fh);
+        fh.setFormatter(sf);
+    }
 
     /**
      * @param args the command line arguments
      * @throws java.io.IOException
      */
     public static void main(String[] args) throws IOException {
-        TriangleProgram TP = new TriangleProgram();
+        //Path to the log file
+        String path = TriangleProgram.class.getProtectionDomain().getCodeSource().getLocation().getPath().substring(1);
+        path = path.substring(0, path.length() - 14);
+
+        /*Settinng up a logger, formatter and a filehandler with the given path so it can log errors
+        to the file called "Log.txt"*/
+        FileHandler fh = new FileHandler(path + "\\Log.txt");
+        SimpleFormatter sf = new SimpleFormatter();
+        TriangleProgram TP = new TriangleProgram(sf, fh, LOGGER);
         TP.inputHandler();
     }
 
@@ -43,17 +71,23 @@ public class TriangleProgram {
                         arr[i] = scan.nextInt();
                     }
                     calcTriangle();
-                } 
-                else if (arr[0] == 2) {
+                } else if (arr[0] == 2) {
                     System.out.println("Closing the program, goodbye");
                     isRunning = false;
-                }
-                else if (arr[0] > 2) {
+                } else if (arr[0] > 2) {
                     System.out.println("!Invalid value please try again");
                 }
             } catch (InputMismatchException ex) {
-                System.out.println("!Invalid error detected. You got a " + ex);
+                errorMessage = "!Invalid error detected. You got a ";
+                System.out.println(errorMessage + ex);
+                LOGGER.log(Level.INFO, "{0}{1}", new Object[]{errorMessage, ex});
+                System.out.println("Please try again");
                 scan = new Scanner(System.in);
+                try {
+                    Thread.sleep(500);
+                } catch (InterruptedException exc) {
+                    LOGGER.log(Level.INFO, "{0}{1}", new Object[]{errorMessage, exc});
+                }
             }
         }
     }
