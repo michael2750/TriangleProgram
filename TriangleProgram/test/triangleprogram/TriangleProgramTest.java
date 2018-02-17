@@ -54,22 +54,18 @@ public class TriangleProgramTest {
         assertNotEquals(tp.getTriangle(), str);
     }
 
-    @Test
+    @Test(expected = NumberFormatException.class)
     public void testTextInput() {
         System.out.println("Testing for text input");
         String str = "!Invalid error detected. You got a ";
         String textString = "text";
-        try {
-            double text = Double.parseDouble(textString);
-            double[] arr = new double[3];
-            arr[0] = text;
-            arr[1] = 3;
-            arr[2] = 5;
-            tp.inputHandler();
-            assertEquals(tp.getErrorMessage(), arr);
-        } catch (NumberFormatException ex) {
-            assertEquals(ex, ex);
-        }
+        double text = Double.parseDouble(textString);
+        double[] arr = new double[3];
+        arr[0] = text;
+        arr[1] = 3;
+        arr[2] = 5;
+        tp.inputHandler();
+        assertEquals(tp.getErrorMessage(), arr);
     }
 
     @Test
