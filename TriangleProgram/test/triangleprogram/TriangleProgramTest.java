@@ -8,6 +8,7 @@ package triangleprogram;
 import java.io.IOException;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import java.lang.NumberFormatException;
 import static org.junit.Assert.*;
 
 /**
@@ -26,10 +27,10 @@ public class TriangleProgramTest {
         tp = new TriangleProgram();
 
     }
-    
+
     @Test
     public void testPositiveNumber() {
-        System.out.println("Testing for positive numbers; 5, 4, 5");
+        System.out.println("Testing for positive numbers");
         String str = "scalene triangle";
         double[] arr = new double[3];
         arr[0] = 5;
@@ -42,8 +43,8 @@ public class TriangleProgramTest {
 
     @Test
     public void testNegativeNumber() {
-        System.out.println("Testing for negative number; 5, -1, 5");
-        String str = "scalene triangle";
+        System.out.println("Testing for negative number");
+        String str = "!Invalid value please type a positive number";
         double[] arr = new double[3];
         arr[0] = 5;
         arr[1] = -4;
@@ -54,8 +55,26 @@ public class TriangleProgramTest {
     }
 
     @Test
+    public void testTextInput() {
+        System.out.println("Testing for text input");
+        String str = "!Invalid error detected. You got a ";
+        String textString = "text";
+        try {
+            double text = Double.parseDouble(textString);
+            double[] arr = new double[3];
+            arr[0] = text;
+            arr[1] = 3;
+            arr[2] = 5;
+            tp.inputHandler();
+            assertEquals(tp.getErrorMessage(), arr);
+        } catch (NumberFormatException ex) {
+            assertEquals(ex, ex);
+        }
+    }
+
+    @Test
     public void getScaleneTriangle() {
-        System.out.println("Testing for Scalene triangle output; 6.3, 5.5, 3");
+        System.out.println("Testing for Scalene triangle output");
         String str = "scalene triangle";
         double[] arr = new double[3];
         arr[0] = 6.3;
@@ -68,7 +87,7 @@ public class TriangleProgramTest {
 
     @Test
     public void getEquilateralTriangle() {
-        System.out.println("Testing for equilateral triangle output; 3, 3, 3");
+        System.out.println("Testing for equilateral triangle output");
         String str = "equilateral triangle";
         double[] arr = new double[3];
         arr[0] = 3;
@@ -81,7 +100,7 @@ public class TriangleProgramTest {
 
     @Test
     public void getIsoscelesTriangle() {
-        System.out.println("Testing for isosceles triangle output; 5, 5, 3");
+        System.out.println("Testing for isosceles triangle output");
         String str = "isosceles triangle";
         double[] arr = new double[3];
         arr[0] = 5;
