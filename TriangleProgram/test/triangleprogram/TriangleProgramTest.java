@@ -8,7 +8,6 @@ package triangleprogram;
 import java.io.IOException;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import java.lang.NumberFormatException;
 import static org.junit.Assert.*;
 
 /**
@@ -22,12 +21,18 @@ public class TriangleProgramTest {
     public TriangleProgramTest() {
     }
 
+    /**
+     * 
+     * @throws IOException 
+     */
     @BeforeClass
     public static void setUpClass() throws IOException {
         tp = new TriangleProgram();
-
     }
 
+    /**
+     * 
+     */
     @Test
     public void testPositiveNumber() {
         System.out.println("Testing for positive numbers");
@@ -64,8 +69,9 @@ public class TriangleProgramTest {
         arr[0] = text;
         arr[1] = 3;
         arr[2] = 5;
+        tp.setArr(arr);
         tp.inputHandler();
-        assertEquals(tp.getErrorMessage(), arr);
+        assertEquals(tp.getErrorMessage(), str);
     }
 
     @Test
